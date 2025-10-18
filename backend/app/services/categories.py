@@ -13,6 +13,20 @@ async def getAllCategories(userId, db):
     categories = await db.category.find_many(
         where={"userId": userId}
     )
+    if not categories:
+        # Create default categories
+        default_categories = [
+            {"userId": userId, "name": "Food"},
+            {"userId": userId, "name": "Transport"},
+            {"userId": userId, "name": "Entertainment"},
+            {"userId": userId, "name": "Utilities"},
+            {"userId": userId, "name": "Other"},
+        ]
+        for cat in default_categories:
+            await db.category.create(data=cat)
+        categories = await db.category.find_many(
+            where={"userId": userId}
+        )
     return categories
 
 async def getCategory(category_id: str, db):

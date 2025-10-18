@@ -13,3 +13,12 @@ eg:
 ```
 http://192.168.1.153:8000/docs
 ```
+
+prisma gen
+```
+npx prisma@5.17.0 generate
+```
+
+```
+npx prisma@5.17.0 db push
+```
